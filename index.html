@@ -310,14 +310,37 @@ table.sheet2{border:1px solid var(--grid)}
 @media (prefers-reduced-motion:reduce){.totop,.snum,.topbar .tprog,.progress span{transition:none}}
 
 /* ------------ print ------------ */
+.printonly{display:none}
+span.printonly{display:none}
+.getpdf{display:flex;align-items:center;gap:.5rem 1rem;flex-wrap:wrap;margin-top:1.6rem}
+.getpdf .btn{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none}
+.getpdf .btn svg{width:1.1em;height:1.1em}
+.getpdf small{color:var(--ink3);font-size:.88rem}
+a.themebtn{text-decoration:none;display:inline-block}
 @media print{
-  .topbar,.nav,.scrim,.totop,.resume,.lb,.copy,.donebox,.nextpart,.dlgrid,.dlmsg,#rescue,.skip{display:none!important}
+  /* always print in the light palette, even from dark mode */
+  :root:not([data-theme="_"]){--bg:#FFFFFF;--sheet:#FFFFFF;--ink:#1B2033;--ink2:#4A5068;--ink3:#6A7088;--grid:#D6D9E4;--grid2:#E9EBF2;--hdr:#EEF0F6;
+    --accent:#233E8B;--accent2:#182C66;--asoft:#E6EBF8;--aline:#A9B8E4;--warn:#9C3F1A;--wsoft:#FBEEE6;--wline:#E8B79C;--amber:#FFF0C2}
+  html{font-size:10pt}
+  .topbar,.nav,.scrim,.totop,.resume,.lb,.copy,.donebox,.nextpart,.dlgrid,.dlmsg,#rescue,.skip,.getpdf,.pcount,.phint,.drill{display:none!important}
+  .printonly{display:block}
+  span.printonly{display:inline}
+  .screenonly{display:none}
   main{margin:0;padding:0}
-  body{background:#fff;color:#000;font-size:11pt}
+  body{background:#fff;color:var(--ink);font-size:11pt}
+  .hero h1{font-size:26pt}
   .part{break-before:page;margin-top:0}
-  .step,.shot,.diag,table{break-inside:avoid}
+  #p1{break-before:auto;margin-top:2.5rem}
+  .shot,.diag,.box,.formula,tr,.snum{break-inside:avoid}
+  h2,h3,h4,.pno{break-after:avoid}
   .shot figcaption::after{content:none}
+  .shot img{box-shadow:none}
   .tw{background:none;overflow:visible}
+  .sheetwrap,.drill ol{max-height:none;overflow:visible}
+  .snum[aria-pressed="true"]{background:var(--sheet);color:var(--accent)}
+  .snum[aria-pressed="true"] span{visibility:visible}
+  .snum[aria-pressed="true"]::after{content:none}
+  .step.isdone h4{color:var(--ink)}
 }
 </style>
 </head>
@@ -334,16 +357,18 @@ table.sheet2{border:1px solid var(--grid)}
   <div class="progress" aria-hidden="true"><span id="prog"></span></div>
   <p class="progtxt" id="progtxt"><b>0</b> of 12 parts done</p>
   <a href="#p1" data-sec="p1"><span>1</span>Read the study first<i class="tick" data-tick="p1"></i></a><a href="#p2" data-sec="p2"><span>2</span>Get the files ready<i class="tick" data-tick="p2"></i></a><a href="#p3" data-sec="p3"><span>3</span>Start Taguette and create the project<i class="tick" data-tick="p3"></i></a><a href="#p4" data-sec="p4"><span>4</span>Create the tags<i class="tick" data-tick="p4"></i></a><a href="#p5" data-sec="p5"><span>5</span>Import the transcripts<i class="tick" data-tick="p5"></i></a><a href="#p6" data-sec="p6"><span>6</span>Code the transcripts<i class="tick" data-tick="p6"></i></a><a href="#p7" data-sec="p7"><span>7</span>Export your work<i class="tick" data-tick="p7"></i></a><a href="#p8" data-sec="p8"><span>8</span>Prepare the data in Excel<i class="tick" data-tick="p8"></i></a><a href="#p9" data-sec="p9"><span>9</span>Make the PivotTables<i class="tick" data-tick="p9"></i></a><a href="#p10" data-sec="p10"><span>10</span>Interpret the results<i class="tick" data-tick="p10"></i></a><a href="#p11" data-sec="p11"><span>11</span>Submit your work<i class="tick" data-tick="p11"></i></a><a href="#p12" data-sec="p12"><span>12</span>Help and answer keys<i class="tick" data-tick="p12"></i></a>
-  <div class="navbtns"><button class="themebtn" id="themebtn" type="button">Dark mode</button><button class="themebtn" id="resetbtn" type="button">Reset my progress</button></div>
+  <div class="navbtns"><button class="themebtn" id="themebtn" type="button">Dark mode</button><button class="themebtn" id="resetbtn" type="button">Reset my progress</button><a class="themebtn" href="Taguette-Excel-Activity.pdf" download>Download PDF</a></div>
 </nav>
 <main id="main" tabindex="-1">
   <div class="hero">
     <h1>From interviews to a PivotTable: a practice activity</h1>
     <p class="sub">You will code six short interviews in Taguette, export them, split the data in Excel, and build PivotTables that show what the participants said. Every step is numbered, with pictures of the real screens.</p>
     <div class="facts"><span><b>6</b> interviews</span><span><b>11</b> tags</span><span><b>45</b> statements to code</span><span>about <b>2&frac12;</b> hours</span><span>Taguette 1.4.1 and Excel 2016 or newer</span></div>
+    <div class="getpdf"><a class="btn" href="Taguette-Excel-Activity.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg>Download as PDF</a><small>Every step and picture, ready to print or read offline.</small></div>
+    <p class="printonly">Online version, with the file downloads and the practice PivotTable: <b>https://michaeltup.github.io/Taguette-Excel-Activity/</b></p>
   </div>
   <div class="resume col" id="resume" role="region" aria-label="Continue"><p id="resumetxt"></p><a class="btn" id="resumego" href="#"></a></div>
-  <div class="box note col"><strong>Before you start</strong><p>You need a Windows computer with Taguette 1.4.1 installed, and Microsoft Excel. Work with a partner if you can: one uses the mouse, the other reads the steps aloud. Click a <b>step number</b> to tick that step, and tick <b>I finished</b> at the end of each part. Your progress is saved in this browser, so you can close the page and come back.</p></div>
+  <div class="box note col"><strong>Before you start</strong><p>You need a Windows computer with Taguette 1.4.1 installed, and Microsoft Excel. Work with a partner if you can: one uses the mouse, the other reads the steps aloud. <span class="screenonly">Click a <b>step number</b> to tick that step, and tick <b>I finished</b> at the end of each part. Your progress is saved in this browser, so you can close the page and come back.</span><span class="printonly">Tick each step in the margin as you finish it.</span></p></div>
 <section class="part" id="p1"><p class="pno">Part 1 <span class="mins">about 10 minutes</span></p><h2>Read the study first</h2><p class="lede">Know what the interviews are about before you open any program. The software is easier when the content is familiar.</p>
 <div class="box note"><strong>The study</strong><p><b>Balancing Work and Graduate Studies: Experiences of Teacher-Graduate Students.</b> Six public school teachers who are also taking graduate studies were interviewed. Three are taking a Master&rsquo;s degree and three a Doctoral degree. All of them are hypothetical: this is practice data written for this activity.</p></div>
 <h3>The participants</h3>
@@ -362,7 +387,7 @@ table.sheet2{border:1px solid var(--grid)}
 <section class="part" id="p2"><p class="pno">Part 2 <span class="mins">about 10 minutes</span></p><h2>Get the files ready</h2><p class="lede">Put everything for this activity in one folder, so you always know where your files are.</p>
 <ol class="steps">
 <li class="step" id="step-1"><button class="snum" type="button" aria-pressed="false" data-step="1"><span>1</span></button><div class="sbody"><h4>Make a folder on your Desktop</h4><ol class="do"><li>Go to your Desktop (the screen you see when all windows are closed).</li><li>Right-click on an empty space. A small menu appears.</li><li>Point to <b>New</b>, then click <b>Folder</b>.</li><li>Type <code class="inl">Taguette-Activity</code> and press <kbd>Enter</kbd>.</li></ol><div class="box see"><strong>You should see</strong><p>A new folder named Taguette-Activity on your Desktop.</p></div><div class="box fix"><strong>If your screen looks different</strong><p>If you clicked away before typing the name, the folder is called <i>New folder</i>. Right-click it, choose <b>Rename</b>, and type the name.</p></div></div></li>
-<li class="step" id="step-2"><button class="snum" type="button" aria-pressed="false" data-step="2"><span>2</span></button><div class="sbody"><h4>Download the six transcripts</h4><ol class="do"><li>Click each of the six buttons below, one at a time.</li><li>If your browser asks where to save, choose the <b>Taguette-Activity</b> folder on your Desktop.</li><li>If it does not ask, the files go to your <b>Downloads</b> folder. Open File Explorer (the yellow folder icon on the taskbar), click <b>Downloads</b>, select the six files, and drag them into Taguette-Activity.</li></ol><div class="dlgrid"><button class="btn dl" type="button" data-file="S01_Masters_Female">S01_Masters_Female.txt</button><button class="btn dl" type="button" data-file="S02_Doctoral_Male">S02_Doctoral_Male.txt</button><button class="btn dl" type="button" data-file="S03_Masters_Male">S03_Masters_Male.txt</button><button class="btn dl" type="button" data-file="S04_Doctoral_Female">S04_Doctoral_Female.txt</button><button class="btn dl" type="button" data-file="S05_Masters_Female">S05_Masters_Female.txt</button><button class="btn dl" type="button" data-file="S06_Doctoral_Male">S06_Doctoral_Male.txt</button></div><p class="dlmsg" id="dlmsg" role="status"></p><div class="box see"><strong>You should see</strong><p>Six files in your Taguette-Activity folder.</p></div></div></li>
+<li class="step" id="step-2"><button class="snum" type="button" aria-pressed="false" data-step="2"><span>2</span></button><div class="sbody"><h4>Download the six transcripts</h4><ol class="do"><li>Click each of the six buttons below, one at a time.</li><li>If your browser asks where to save, choose the <b>Taguette-Activity</b> folder on your Desktop.</li><li>If it does not ask, the files go to your <b>Downloads</b> folder. Open File Explorer (the yellow folder icon on the taskbar), click <b>Downloads</b>, select the six files, and drag them into Taguette-Activity.</li></ol><div class="dlgrid"><button class="btn dl" type="button" data-file="S01_Masters_Female">S01_Masters_Female.txt</button><button class="btn dl" type="button" data-file="S02_Doctoral_Male">S02_Doctoral_Male.txt</button><button class="btn dl" type="button" data-file="S03_Masters_Male">S03_Masters_Male.txt</button><button class="btn dl" type="button" data-file="S04_Doctoral_Female">S04_Doctoral_Female.txt</button><button class="btn dl" type="button" data-file="S05_Masters_Female">S05_Masters_Female.txt</button><button class="btn dl" type="button" data-file="S06_Doctoral_Male">S06_Doctoral_Male.txt</button></div><p class="dlmsg" id="dlmsg" role="status"></p><p class="printonly"><b>The six download buttons are on the online version:</b> https://michaeltup.github.io/Taguette-Excel-Activity/</p><div class="box see"><strong>You should see</strong><p>Six files in your Taguette-Activity folder.</p></div></div></li>
 <li class="step" id="step-3"><button class="snum" type="button" aria-pressed="false" data-step="3"><span>3</span></button><div class="sbody"><h4>Check the six file names</h4><ol class="do"><li>Open the Taguette-Activity folder.</li><li>Compare each name with the list below. They must match exactly.</li></ol><div class="tw"><table class="small"><thead><tr><th>File name</th><th>Means</th></tr></thead><tbody><tr><td><code class="inl">S01_Masters_Female.txt</code></td><td>S01, Master&rsquo;s student, Female</td></tr><tr><td><code class="inl">S02_Doctoral_Male.txt</code></td><td>S02, Doctoral student, Male</td></tr><tr><td><code class="inl">S03_Masters_Male.txt</code></td><td>S03, Master&rsquo;s student, Male</td></tr><tr><td><code class="inl">S04_Doctoral_Female.txt</code></td><td>S04, Doctoral student, Female</td></tr><tr><td><code class="inl">S05_Masters_Female.txt</code></td><td>S05, Master&rsquo;s student, Female</td></tr><tr><td><code class="inl">S06_Doctoral_Male.txt</code></td><td>S06, Doctoral student, Male</td></tr></tbody></table></div><p class="why"><strong>Why this matters.</strong> Each name has three parts separated by underscores: <b>Participant_Program_Sex</b>. Taguette cannot store a person&rsquo;s program or sex anywhere else, so the name carries them. In Part 8, Excel splits the name back into three columns.</p><div class="box fix"><strong>If your screen looks different</strong><p>If a file name ends in <i>(1)</i>, you downloaded it twice. Delete the copy with (1).</p></div></div></li>
 </ol>
 <label class="donebox"><input type="checkbox" data-done="p2"> I finished Part 2</label></section>
@@ -410,7 +435,7 @@ table.sheet2{border:1px solid var(--grid)}
 <li class="step" id="step-26"><button class="snum" type="button" aria-pressed="false" data-step="26"><span>26</span></button><div class="sbody"><h4>Back up the whole project</h4><ol class="do"><li>Click the <b>Project info</b> tab.</li><li>Click <b>Export project</b> (box). Save the file in your folder.</li></ol><figure class="shot"><img loading="lazy" decoding="async" width="1180" height="701" src="img/step-26.jpg" alt="Project info: Export project saves your whole project in one file."><figcaption>Project info: Export project saves your whole project in one file.</figcaption></figure><div class="box see"><strong>You should see</strong><p>A file ending in <b>.sqlite3</b> in your folder. This file is also what you submit.</p></div><p class="why"><strong>Why this matters.</strong> This one file holds your documents, tags and coding. You can open it again on any computer: on the Taguette welcome page, choose <b>Import a project file</b>.</p></div></li>
 <li class="step" id="step-27"><button class="snum" type="button" aria-pressed="false" data-step="27"><span>27</span></button><div class="sbody"><h4>Close Taguette properly</h4><ol class="do"><li>Close the browser tab first.</li><li>Then close the black Taguette window.</li></ol><p class="why"><strong>Why this matters.</strong> Closing only the browser tab leaves Taguette running in the background.</p></div></li>
 </ol>
-<div class="box note"><strong>Stuck in Taguette?</strong><p>You can still do Parts 8 to 10. Download the ready-made export and continue with it.</p><button class="btn" type="button" id="rescue">Download the ready-made export (.xlsx)</button></div>
+<div class="box note"><strong>Stuck in Taguette?</strong><p>You can still do Parts 8 to 10. Download the ready-made export and continue with it.<span class="printonly"> The download button is on the online version of this activity.</span></p><button class="btn" type="button" id="rescue">Download the ready-made export (.xlsx)</button></div>
 <label class="donebox"><input type="checkbox" data-done="p7"> I finished Part 7</label></section>
 <section class="part" id="p8"><p class="pno">Part 8 <span class="mins">about 20 minutes</span></p><h2>Prepare the data in Excel</h2><p class="lede">You will split the document name and the tag into separate columns. This is called delimiting: cutting text wherever a chosen character appears.</p>
 <ol class="steps">
