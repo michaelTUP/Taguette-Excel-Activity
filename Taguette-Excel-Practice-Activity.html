@@ -16,8 +16,11 @@
   --amber:#FFF4D1;
   --sans:"Atkinson Hyperlegible",Verdana,"Segoe UI",Tahoma,sans-serif;
   --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
-  --nav:17rem; --top:3.4rem;
+  --nav:17rem; --top:3.4rem; --w:46rem;
 }
+/* content column widens with the screen */
+@media (min-width:1200px){:root{--w:54rem}}
+@media (min-width:1500px){:root{--w:62rem}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#121815; --sheet:#1A221E; --ink:#E6EEE9; --ink2:#AEBCB5; --ink3:#83918A;
   --grid:#2F3A35; --grid2:#25302B; --hdr:#222C27;
@@ -29,10 +32,10 @@
   --green:#5DC08C; --green2:#86D6AA; --gsoft:#1E3328; --gline:#2F6B4A;
   --warn:#F0A07D; --wsoft:#35231A; --wline:#6E4431; --amber:#3A3320;}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:calc(var(--top) + 1rem + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+html{font-size:clamp(16px,calc(.55vw + 8px),20px);scroll-padding-top:calc(var(--top) + 1rem + env(safe-area-inset-top,0px));scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.125rem;line-height:1.62;-webkit-font-smoothing:antialiased}
 a{color:var(--green)}
 :focus-visible{outline:3px solid var(--green);outline-offset:2px}
 img{max-width:100%}
@@ -60,7 +63,8 @@ img{max-width:100%}
 .scrim{position:fixed;inset:0;background:rgba(10,15,12,.45);z-index:45;display:none}
 
 main{min-width:0;margin-left:var(--nav);padding:2.6rem clamp(1.1rem,4vw,3.4rem) 5rem}
-.col{max-width:46rem}
+.col{max-width:var(--w)}
+.hero,.part,.foot,main>.col{width:100%;max-width:var(--w);margin-left:auto;margin-right:auto}
 
 @media (max-width:980px){
   .topbar{display:flex}
@@ -72,7 +76,7 @@ main{min-width:0;margin-left:var(--nav);padding:2.6rem clamp(1.1rem,4vw,3.4rem) 
 @media (prefers-reduced-motion:reduce){.nav{transition:none}}
 
 /* ------------ hero ------------ */
-.hero{max-width:62rem;margin-bottom:3.2rem}
+.hero{margin-bottom:3.2rem}
 .hero h1{font-size:clamp(2rem,4.6vw,3.05rem);line-height:1.08;letter-spacing:-.015em;margin:0 0 .8rem;max-width:18ch}
 .hero .sub{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin:0 0 1.8rem}
 .transform{display:grid;grid-template-columns:minmax(0,1.5fr) auto minmax(0,1fr);gap:1rem;align-items:center}
@@ -107,7 +111,7 @@ table.num td:not(:first-child){text-align:right;font-family:var(--mono);font-siz
 table.small{font-size:.9rem}
 
 /* ------------ parts & steps ------------ */
-.part{margin-top:4.2rem;max-width:46rem}
+.part{margin-top:4.2rem}
 .part:first-of-type{margin-top:0}
 .pno{font-family:var(--mono);font-size:.85rem;color:var(--green);margin:0 0 .3rem}
 .part h2{font-size:clamp(1.5rem,3vw,1.95rem);line-height:1.15;margin:0 0 .6rem;letter-spacing:-.01em}
@@ -173,7 +177,7 @@ kbd{font-family:var(--mono);font-size:.82em;border:1px solid var(--grid);border-
 .heat .rl{text-align:left;font-family:var(--sans);background:var(--hdr);white-space:nowrap}
 
 /* playground */
-.play{max-width:62rem;background:var(--sheet);border:1px solid var(--grid);border-radius:8px;padding:1.1rem;margin:1rem 0;box-shadow:0 1px 0 var(--grid)}
+.play{max-width:100%;background:var(--sheet);border:1px solid var(--grid);border-radius:8px;padding:1.1rem;margin:1rem 0;box-shadow:0 1px 0 var(--grid)}
 .pctl{display:grid;grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:.7rem 1rem}
 .pctl label{display:flex;flex-direction:column;font-size:.84rem;color:var(--ink2);gap:.2rem}
 .pctl select{font:inherit;font-size:.95rem;padding:.4rem .5rem;border:1px solid var(--grid);background:var(--sheet);color:var(--ink);border-radius:5px}
@@ -194,7 +198,7 @@ kbd{font-family:var(--mono);font-size:.82em;border:1px solid var(--grid);border-
 .dlmsg{font-size:.9rem;color:var(--ink2)}
 .rules{padding-left:1.3rem}
 .rules li{margin:.6rem 0}
-.foot{margin-top:5rem;padding-top:1.4rem;border-top:1px solid var(--grid);font-size:.88rem;color:var(--ink3);max-width:46rem}
+.foot{margin-top:5rem;padding-top:1.4rem;border-top:1px solid var(--grid);font-size:.88rem;color:var(--ink3)}
 
 .mins{font-family:var(--sans);color:var(--ink3);font-size:.85rem;margin-left:.6rem}
 .shot{margin:1rem 0;padding:0}
